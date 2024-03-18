@@ -13,7 +13,6 @@ export const Search = () => {
     const fetchimages = async () => {
       const res = await axios.get(`${API}/images/search/search${search}`)
       setImages(res.data)
-      console.log(res.data)
     }
     fetchimages()
   },[search])

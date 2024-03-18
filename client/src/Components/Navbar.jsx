@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { Avatar, IconButton, Tooltip } from '@mui/material';
+import { Avatar, Tooltip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link, useNavigate } from 'react-router-dom';
@@ -70,6 +70,7 @@ export default function Navbar() {
     
   }
   const handleSeachInput = (e) => {
+    e.preventDefault()
     navigate(`/search?search=${search}`)
   }
 
@@ -94,6 +95,7 @@ export default function Navbar() {
           >
             {currentUser? `Hello,${currentUser?.name}` : 'Hello, User'}
           </Typography>
+         {currentUser? 
           <Search >
             <SearchIconWrapper >
               <SearchIcon />
@@ -104,7 +106,16 @@ export default function Navbar() {
               onKeyUp={handleSeachInput}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search>:  
+          <Search >
+            <SearchIconWrapper >
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>}
           {currentUser ?
           <Tooltip title={currentUser?.name} sx={{alignSelf:'center'}}>
             <Avatar src={currentUser?.ImgUrl}/> 
