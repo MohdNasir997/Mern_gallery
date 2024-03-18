@@ -33,7 +33,7 @@ export const AddOneImage = async (req,res) => {
 export const SearchImage = async (req,res) => {
     const query = req.query.search
     try {
-        const image = await Images.find({title:{$regex: query,$options: "i"},}).limit(10)
+        const image = await Images.find({name:{$regex: query,$options: "i"},}).limit(10)
         res.status(200).json(image)
     } catch (error) {
         res.json(error)

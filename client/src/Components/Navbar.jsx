@@ -5,12 +5,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { Avatar, Tooltip } from '@mui/material';
+import { Avatar, IconButton, Tooltip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import {LogOut} from '../Redux/UserSlice.js'
+import { useState } from 'react';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -59,6 +60,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
   const {currentUser} = useSelector(state => state.user )
   const dispatch = useDispatch()
+  const [search,setSearch] = useState('');
+  const navigate = useNavigate()
+  
+  const handleSearch = (e) => {
+    e.preventDefault()
+    setSearch(e.currentTarget.value)
+    
+    
+  }
+  const handleSeachInput = (e) => {
+    navigate(`/search?search=${search}`)
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -66,8 +80,9 @@ export default function Navbar() {
           <Typography
             variant="h6"
             noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            component="a"
+            href='/'
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' },color:'inherit',textDecoration:'none' }}
           >
             Image App
           </Typography>
@@ -80,11 +95,13 @@ export default function Navbar() {
             {currentUser? `Hello,${currentUser?.name}` : 'Hello, User'}
           </Typography>
           <Search >
-            <SearchIconWrapper>
+            <SearchIconWrapper >
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
+              onChange={handleSearch}
+              onKeyUp={handleSeachInput}
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>

@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { AddOneImage, GetImages, GetOneImage } from '../Controllers/ImageController.js';
+import { AddOneImage, GetImages, GetOneImage, SearchImage } from '../Controllers/ImageController.js';
 
 const router = Router();
 
@@ -10,7 +10,7 @@ router.get('/getimages/:id',GetImages)
 
 
 // Get Search Post
-router.get('/search/search',)
+router.get('/search/search',SearchImage)
 // Post Create Post
 router.post('/',AddOneImage)
 // PUt Update Post
